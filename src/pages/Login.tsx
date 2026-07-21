@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,10 @@ import { lovable } from "@/integrations/lovable/index";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const rawNext = searchParams.get("next") || "";
+  // Only allow same-origin relative paths.
+  const nextPath = rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,7 +28,7 @@ const Login = () => {
     if (error) {
       toast.error(error.message);
     } else {
-      navigate("/dashboard");
+      navigate(nextPath || "/dashboard");
     }
     setLoading(false);
   };
@@ -92,7 +96,9 @@ const Login = () => {
               disabled={loading}
               onClick={async () => {
                 const { error } = await lovable.auth.signInWithOAuth("google", {
-                  redirect_uri: window.location.origin,
+                  redirect_uri: nextPath
+                    ? window.location.origin + nextPath
+                    : window.location.origin,
                 });
                 if (error) toast.error(String(error));
               }}

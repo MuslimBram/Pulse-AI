@@ -39,6 +39,7 @@ import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
 import Pricing from "./pages/Pricing";
 import PublicApi from "./pages/PublicApi";
+import OAuthConsent from "./pages/OAuthConsent";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -77,6 +78,7 @@ const App = () => (
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/pricing" element={<Pricing />} />
+                <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
 
                 <Route path="/dashboard" element={<ProtectedPage><Dashboard /></ProtectedPage>} />
                 <Route path="/inbox" element={<ProtectedPage><Inbox /></ProtectedPage>} />

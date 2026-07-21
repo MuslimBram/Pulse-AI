@@ -13,6 +13,8 @@ const Register = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const refCode = searchParams.get("ref") || "";
+  const rawNext = searchParams.get("next") || "";
+  const nextPath = rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "";
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,7 +33,7 @@ const Register = () => {
       password,
       options: {
         data: { full_name: fullName, ...(refCode ? { referral_code: refCode } : {}) },
-        emailRedirectTo: window.location.origin,
+        emailRedirectTo: nextPath ? window.location.origin + nextPath : window.location.origin,
       },
     });
 
@@ -39,7 +41,7 @@ const Register = () => {
       toast.error(error.message);
     } else {
       toast.success("Check your email to confirm your account");
-      navigate("/login");
+      navigate(nextPath ? `/login?next=${encodeURIComponent(nextPath)}` : "/login");
     }
     setLoading(false);
   };
@@ -117,7 +119,9 @@ const Register = () => {
               disabled={loading}
               onClick={async () => {
                 const { error } = await lovable.auth.signInWithOAuth("google", {
-                  redirect_uri: window.location.origin,
+                  redirect_uri: nextPath
+                    ? window.location.origin + nextPath
+                    : window.location.origin,
                 });
                 if (error) toast.error(String(error));
               }}
