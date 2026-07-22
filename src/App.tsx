@@ -40,6 +40,9 @@ import Index from "./pages/Index";
 import Pricing from "./pages/Pricing";
 import PublicApi from "./pages/PublicApi";
 import OAuthConsent from "./pages/OAuthConsent";
+import AIDecisions from "./pages/AIDecisions";
+import ResellerDashboard from "./pages/ResellerDashboard";
+import TermsAndPayments from "./pages/TermsAndPayments";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -79,6 +82,7 @@ const App = () => (
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
+                <Route path="/terms" element={<TermsAndPayments />} />
 
                 <Route path="/dashboard" element={<ProtectedPage><Dashboard /></ProtectedPage>} />
                 <Route path="/inbox" element={<ProtectedPage><Inbox /></ProtectedPage>} />
@@ -103,6 +107,8 @@ const App = () => (
                 <Route path="/admin/businesses/:businessId/scan-insights" element={<ProtectedPage><AdminBusinessScanInsights /></ProtectedPage>} />
                 <Route path="/deep-analytics" element={<ProtectedPage><DeepAnalytics /></ProtectedPage>} />
                 <Route path="/public-api" element={<ProtectedPage><PublicApi /></ProtectedPage>} />
+                <Route path="/ai-decisions" element={<ProtectedPage><AIDecisions /></ProtectedPage>} />
+                <Route path="/reseller-dashboard" element={<ProtectedPage><ResellerDashboard /></ProtectedPage>} />
                 <Route path="/external-integrations" element={<Navigate to="/connected-accounts?tab=integrations" replace />} />
 
                 <Route path="/contact-hub" element={<Navigate to="/crm?tab=contacts" replace />} />
