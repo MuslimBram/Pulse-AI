@@ -14,6 +14,62 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_agent_tasks: {
+        Row: {
+          agent_name: string
+          completed_at: string | null
+          cost_usd: number | null
+          created_at: string
+          id: string
+          input: Json
+          output: Json | null
+          parent_task_id: string | null
+          started_at: string | null
+          status: string
+          task_type: string
+          tokens_used: number | null
+          workspace_id: string
+        }
+        Insert: {
+          agent_name: string
+          completed_at?: string | null
+          cost_usd?: number | null
+          created_at?: string
+          id?: string
+          input?: Json
+          output?: Json | null
+          parent_task_id?: string | null
+          started_at?: string | null
+          status?: string
+          task_type: string
+          tokens_used?: number | null
+          workspace_id: string
+        }
+        Update: {
+          agent_name?: string
+          completed_at?: string | null
+          cost_usd?: number | null
+          created_at?: string
+          id?: string
+          input?: Json
+          output?: Json | null
+          parent_task_id?: string | null
+          started_at?: string | null
+          status?: string
+          task_type?: string
+          tokens_used?: number | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_agent_tasks_parent_task_id_fkey"
+            columns: ["parent_task_id"]
+            isOneToOne: false
+            referencedRelation: "ai_agent_tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ai_conversation_memory: {
         Row: {
           business_id: string | null
@@ -186,6 +242,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      ai_training_data: {
+        Row: {
+          answer: string
+          category: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          language: string | null
+          priority: number
+          question: string
+          type: string
+          updated_at: string
+          workspace_id: string | null
+        }
+        Insert: {
+          answer: string
+          category?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          language?: string | null
+          priority?: number
+          question: string
+          type?: string
+          updated_at?: string
+          workspace_id?: string | null
+        }
+        Update: {
+          answer?: string
+          category?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          language?: string | null
+          priority?: number
+          question?: string
+          type?: string
+          updated_at?: string
+          workspace_id?: string | null
+        }
+        Relationships: []
       }
       analytics_cache: {
         Row: {
@@ -664,6 +762,48 @@ export type Database = {
           },
         ]
       }
+      blocked_content: {
+        Row: {
+          blocked_by: string
+          content: string | null
+          created_at: string
+          id: string
+          reason: string
+          source: string
+          source_id: string | null
+          unblocked: boolean
+          unblocked_at: string | null
+          unblocked_by: string | null
+          workspace_id: string | null
+        }
+        Insert: {
+          blocked_by?: string
+          content?: string | null
+          created_at?: string
+          id?: string
+          reason: string
+          source: string
+          source_id?: string | null
+          unblocked?: boolean
+          unblocked_at?: string | null
+          unblocked_by?: string | null
+          workspace_id?: string | null
+        }
+        Update: {
+          blocked_by?: string
+          content?: string | null
+          created_at?: string
+          id?: string
+          reason?: string
+          source?: string
+          source_id?: string | null
+          unblocked?: boolean
+          unblocked_at?: string | null
+          unblocked_by?: string | null
+          workspace_id?: string | null
+        }
+        Relationships: []
+      }
       broadcast_optouts: {
         Row: {
           channel_type: string
@@ -1059,6 +1199,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      business_memory: {
+        Row: {
+          business_id: string
+          confidence: number
+          created_at: string
+          entity_type: string
+          id: string
+          memory_key: string
+          memory_value: Json
+          source: string
+          updated_at: string
+        }
+        Insert: {
+          business_id: string
+          confidence?: number
+          created_at?: string
+          entity_type: string
+          id?: string
+          memory_key: string
+          memory_value?: Json
+          source?: string
+          updated_at?: string
+        }
+        Update: {
+          business_id?: string
+          confidence?: number
+          created_at?: string
+          entity_type?: string
+          id?: string
+          memory_key?: string
+          memory_value?: Json
+          source?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       business_notifications: {
         Row: {
@@ -3590,6 +3766,69 @@ export type Database = {
           },
         ]
       }
+      integration_status: {
+        Row: {
+          ai_setup_done: boolean
+          id: string
+          integrations: Json
+          last_checked: string
+          onboarding_done: boolean
+          onboarding_step: number
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          ai_setup_done?: boolean
+          id?: string
+          integrations?: Json
+          last_checked?: string
+          onboarding_done?: boolean
+          onboarding_step?: number
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          ai_setup_done?: boolean
+          id?: string
+          integrations?: Json
+          last_checked?: string
+          onboarding_done?: boolean
+          onboarding_step?: number
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: []
+      }
+      ip_whitelist: {
+        Row: {
+          added_by: string | null
+          created_at: string
+          id: string
+          ip_cidr: string
+          is_active: boolean
+          label: string | null
+          workspace_id: string
+        }
+        Insert: {
+          added_by?: string | null
+          created_at?: string
+          id?: string
+          ip_cidr: string
+          is_active?: boolean
+          label?: string | null
+          workspace_id: string
+        }
+        Update: {
+          added_by?: string | null
+          created_at?: string
+          id?: string
+          ip_cidr?: string
+          is_active?: boolean
+          label?: string | null
+          workspace_id?: string
+        }
+        Relationships: []
+      }
       job_queue: {
         Row: {
           attempts: number | null
@@ -5425,6 +5664,24 @@ export type Database = {
           },
         ]
       }
+      rate_limit_counters: {
+        Row: {
+          count: number
+          key: string
+          window_start: string
+        }
+        Insert: {
+          count?: number
+          key: string
+          window_start: string
+        }
+        Update: {
+          count?: number
+          key?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
       reengagement_tasks: {
         Row: {
           channel: string
@@ -5769,6 +6026,81 @@ export type Database = {
         }
         Relationships: []
       }
+      security_incidents: {
+        Row: {
+          action_taken: string
+          auto_blocked: boolean
+          blocked_reason: string | null
+          category: string
+          created_at: string
+          detected_text: string | null
+          id: string
+          incident_type: string
+          ip_address: string | null
+          matched_pattern: string | null
+          review_action: string | null
+          review_note: string | null
+          reviewed: boolean
+          reviewed_at: string | null
+          reviewed_by: string | null
+          severity: string
+          source: string
+          source_id: string | null
+          threat_score: number
+          user_agent: string | null
+          user_id: string | null
+          workspace_id: string | null
+        }
+        Insert: {
+          action_taken?: string
+          auto_blocked?: boolean
+          blocked_reason?: string | null
+          category: string
+          created_at?: string
+          detected_text?: string | null
+          id?: string
+          incident_type: string
+          ip_address?: string | null
+          matched_pattern?: string | null
+          review_action?: string | null
+          review_note?: string | null
+          reviewed?: boolean
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          severity?: string
+          source: string
+          source_id?: string | null
+          threat_score?: number
+          user_agent?: string | null
+          user_id?: string | null
+          workspace_id?: string | null
+        }
+        Update: {
+          action_taken?: string
+          auto_blocked?: boolean
+          blocked_reason?: string | null
+          category?: string
+          created_at?: string
+          detected_text?: string | null
+          id?: string
+          incident_type?: string
+          ip_address?: string | null
+          matched_pattern?: string | null
+          review_action?: string | null
+          review_note?: string | null
+          reviewed?: boolean
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          severity?: string
+          source?: string
+          source_id?: string | null
+          threat_score?: number
+          user_agent?: string | null
+          user_id?: string | null
+          workspace_id?: string | null
+        }
+        Relationships: []
+      }
       sending_reputation: {
         Row: {
           channel_type: string
@@ -5947,6 +6279,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      sso_configs: {
+        Row: {
+          allowed_domains: string[]
+          client_id: string | null
+          client_secret_encrypted: string | null
+          created_at: string
+          enforce_sso: boolean
+          id: string
+          is_active: boolean
+          provider: string
+          tenant_id: string | null
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          allowed_domains?: string[]
+          client_id?: string | null
+          client_secret_encrypted?: string | null
+          created_at?: string
+          enforce_sso?: boolean
+          id?: string
+          is_active?: boolean
+          provider: string
+          tenant_id?: string | null
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          allowed_domains?: string[]
+          client_id?: string | null
+          client_secret_encrypted?: string | null
+          created_at?: string
+          enforce_sso?: boolean
+          id?: string
+          is_active?: boolean
+          provider?: string
+          tenant_id?: string | null
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: []
       }
       stripe_product_plans: {
         Row: {
