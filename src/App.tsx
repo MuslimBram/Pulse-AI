@@ -43,6 +43,10 @@ import OAuthConsent from "./pages/OAuthConsent";
 import AIDecisions from "./pages/AIDecisions";
 import ResellerDashboard from "./pages/ResellerDashboard";
 import TermsAndPayments from "./pages/TermsAndPayments";
+import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
+import TermsOfService from "./pages/legal/TermsOfService";
+import AffiliateTerms from "./pages/legal/AffiliateTerms";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
