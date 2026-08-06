@@ -42,7 +42,11 @@ import PublicApi from "./pages/PublicApi";
 import OAuthConsent from "./pages/OAuthConsent";
 import AIDecisions from "./pages/AIDecisions";
 import ResellerDashboard from "./pages/ResellerDashboard";
-import TermsAndPayments from "./pages/TermsAndPayments";
+import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
+import TermsOfService from "./pages/legal/TermsOfService";
+import AffiliateTerms from "./pages/legal/AffiliateTerms";
+
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -82,7 +86,10 @@ const App = () => (
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
-                <Route path="/terms" element={<TermsAndPayments />} />
+                <Route path="/terms" element={<TermsOfService />} />
+                <Route path="/privacy" element={<PrivacyPolicy />} />
+                <Route path="/affiliate-terms" element={<AffiliateTerms />} />
+
 
                 <Route path="/dashboard" element={<ProtectedPage><Dashboard /></ProtectedPage>} />
                 <Route path="/inbox" element={<ProtectedPage><Inbox /></ProtectedPage>} />
