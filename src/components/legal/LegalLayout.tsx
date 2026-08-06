@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { Zap, ArrowLeft } from "lucide-react";
+import React from "react";
+
 
 interface LegalLayoutProps {
   title: string;
